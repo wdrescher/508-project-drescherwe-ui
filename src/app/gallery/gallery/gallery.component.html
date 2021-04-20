@@ -8,14 +8,8 @@
     </p-button>
 </div>
 <div class="tattoo-gallery">
-    <div class="tattoo-gallery__container" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+    <div class="tattoo-gallery__container">
         <ng-container *ngFor="let tile of feed; let i = index">
-            <tattoo-tile *ngIf="!!tile.content" [tile]="tileData(tile)" [ngStyle]="{'margin-top': i === 0 ? '0' : '24px'}"
-                style="width: 100%">
-            </tattoo-tile>
-            <div *ngIf="!tile.content" class="tattoo-gallery__skeleton" [ngStyle]="{'margin-top': i === 0 ? '0' : '24px'}">
-                <tattoo-skeleton style="width: 100%"></tattoo-skeleton>
-            </div>
         </ng-container>
     </div>
 </div>

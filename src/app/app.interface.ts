@@ -29,7 +29,7 @@ export interface SettingItem {
     httpField?: boolean;
     isCountry?: boolean;
     readOnly?: boolean; 
-  }
+}
 
 export enum InputType {
     TEXT = 'text',
@@ -43,21 +43,25 @@ export interface Settings {
 
 export interface User {
     username: string; 
-    profile_image_content_id: string;
     email: string; 
     first_name: string; 
     last_name: string; 
-    country: string; 
-    state_or_province: string; 
+}
+
+export interface Client {
+    payment_id: string; 
+    contact_method: string;
+}
+
+export interface Parlor {
+    parlor_id: string; 
+    name: string; 
+    address_line_1: string; 
+    address_line_2: string; 
     city: string; 
-    street_address: string; 
-    street_address_line_2: string; 
-    settings?: Settings; 
-    twitter_url: string; 
-    instagram_url: string; 
-    bio: string; 
-    id_front_url: string;
-    id_back_url: string;
+    state: string; 
+    zip: string; 
+    shop_commission: number; 
 }
 
 export enum AppState {

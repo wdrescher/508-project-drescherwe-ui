@@ -29,7 +29,6 @@ export class NavigationComponent implements OnInit {
       name: 'New',
       route: AppState.SETUP,
       class: 'pi pi-plus-circle',
-      isUpload: () => (this._userStateService.isCreator || this._userStateService.pendingApproval) 
     },
     {
       name: 'Discover',
@@ -62,23 +61,7 @@ export class NavigationComponent implements OnInit {
   }
 
   navigate(tab: NavigationTab): void {
-    if (!!tab.isUpload && tab.isUpload()) {
-      this._appStateService.displayUploadModal = true; 
-    }
-    else {
-      this._router.navigateByUrl(tab.route);
-    }
+    this._router.navigateByUrl(tab.route);
   }
-
-  fileChange(file) {
-    this._userStateService.newContent = file; 
-    this._appStateService.displayUploadModal = true; 
-  }
-
-  /*
-  (this._userStateService.isCreator || this._userStateService.pendingApproval)
-        ? this._userStateService.displayUploadModal = true 
-        : this._router.navigateByUrl(AppState.SETUP); 
-  */
 }
  

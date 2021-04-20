@@ -15,7 +15,30 @@
                     <label for="email">Email</label>
                 </span>
             </ng-container>
-            <ng-container *ngIf="isLogin || isReset || isSetPassword"> 
+            <ng-container *ngIf="isSetPassword">
+                <span class="p-float-label landing-page__form-input-span" style="margin-top: 24px">
+                    <input class="landing-page__form-input" 
+                        required
+                        formControlName="first_name" 
+                        type="text" 
+                        id="first_name"
+                        pInputText
+                    >
+                    <label for="first_name">First Name</label>
+                </span>
+                <span class="p-float-label landing-page__form-input-span" style="margin-top: 24px">
+                    <input class="landing-page__form-input" 
+                        required
+                        formControlName="last_name" 
+                        type="text" 
+                        name="last_name" 
+                        id="last_name"
+                        pInputText
+                    >
+                    <label for="last_name">Last Name</label>
+                </span>
+            </ng-container>
+            <ng-container *ngIf="isLogin || isReset || isSetPassword || isSignup"> 
                 <span class="p-float-label landing-page__form-input-span" style="margin-top: 24px">
                     <input class="landing-page__form-input" 
                         formControlName="password" 
@@ -29,7 +52,7 @@
                 </span>
             </ng-container>
 
-            <ng-container *ngIf="isReset || isSetPassword">
+            <ng-container *ngIf="isReset || isSetPassword || isSignup">
                 <span class="p-float-label landing-page__form-input-span" style="margin-top: 24px">
                     <input
                         pInputText

@@ -12,8 +12,6 @@ export class UserStateService {
   private _user: User;
   private _isLoggedIn = false;
   private _awaitingVerification: boolean;
-  private _pendingApproval: boolean = false;
-  private _newContent: File;
 
   $postInProgress = new Subject<boolean>();
   $newContentStream = new Subject<File>();
@@ -58,10 +56,6 @@ export class UserStateService {
     return this._awaitingVerification;
   }
 
-  get bio(): string {
-    return this.isDefined ? this._user.bio : '';
-  }
-  
   get isDefined(): boolean {
     return !!this._user;
   }
@@ -80,57 +74,5 @@ export class UserStateService {
 
   get email(): string {
     return this.isDefined ? this._user.email : "";
-  }
-
-  set newContent(file: File) {
-    this.$postInProgress.next(true);
-    this._newContent = file;
-    this.$newContentStream.next(file);
-  }
-
-  get newContent(): File {
-    return this._newContent;
-  }
-
-
-  get isCreator(): boolean {
-    return true; 
-    // return this.isDefined && !!this._user.id_front_url;
-  }
-
-  get pendingApproval(): boolean {
-    return this._pendingApproval;
-  }
-
-  set pendingApproval(input: boolean) {
-    this._pendingApproval = input;
-  }
-  
-  get twitterUrl(): string {
-    return this.isDefined ? this._user.twitter_url : ''; 
-  }
-
-  get instagramUrl(): string {
-    return this.isDefined ? this._user.instagram_url : ''; 
-  }
-
-  get addressLine1(): string {
-    return this.isDefined ? this._user.street_address : ''; 
-  }
-
-  get addressLine2(): string {
-    return this.isDefined ? this._user.street_address_line_2 : ''; 
-  }
-
-  get city(): string {
-    return this.isDefined ? this._user.city : ''; 
-  }
-
-  get stateOrProvince(): string {
-    return this.isDefined ? this._user.state_or_province : ''; 
-  }
-
-  get country(): string {
-    return this.isDefined ? this._user.country: ''; 
   }
 }

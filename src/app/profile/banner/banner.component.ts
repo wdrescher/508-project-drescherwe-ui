@@ -1,12 +1,10 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Message, MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { User } from 'src/app/app.interface';
 
 import { AppStateService } from 'src/app/services/app-state.service';
-import { UpdateUserRequest } from 'src/app/services/settings.interface';
 import { SettingsService } from 'src/app/services/settings.service';
 import { UserStateService } from 'src/app/services/user-state.service';
 
@@ -53,23 +51,10 @@ export class BannerComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _userStateService: UserStateService, 
     private _settingsService: SettingsService, 
-    private _appStateService: AppStateService, 
-    private _messageService: MessageService, 
-    private _activatedRoute: ActivatedRoute
+    private _appStateService: AppStateService
   ) {}
 
   ngOnInit(): void {
-    if (this.isUserProfile) {
-      this.bio = this._userStateService.bio === '' ? "Bio" : this._userStateService.bio; 
-      this.formGroup = this._formBuilder.group(
-        {
-          'bio': [this._userStateService.bio]
-        }
-      )
-      this.formGroupUsername = this._formBuilder.group({
-        'username': [this._userStateService.username, [Validators.pattern(new RegExp('^([A-Z]|[a-z]|[0-9]|_)+$')), Validators.maxLength(20)]]
-      })
-    }
     for (let i = this.counts.length - 2; i >= 0; i--) {
       this.counts.splice(i + 1, 0, { count: 0, description: '', isSpacer: true })
     }
@@ -111,33 +96,5 @@ export class BannerComponent implements OnInit {
 
   setValid(input: boolean): void {
     this.canSetUsername = input; 
-  }
-
-  onSubmit(): void {
-    if (this.formGroup.valid) {
-      this.isLoading = true; 
-      let bio = this.formGroup.controls['bio'].value;
-      let data: UpdateUserRequest = {
-        bio: bio
-      }
-      this._settingsService.updateUser(this._userStateService.username, data).subscribe(
-        (res: User) => {
-          this._userStateService.loadUser(res);
-          this.bio = res.bio;
-          this.isLoading = false; 
-          this.toggleBioEdit(); 
-          let message: Message = {
-            closable: true, 
-            data: "Bio Updated", 
-            severity: "success"
-          }
-          this._messageService.add(message); 
-        }, 
-        () => {
-          this._appStateService.displayErrorModal = true; 
-          this.isLoading = false; 
-        }
-      )
-    }
   }
 }

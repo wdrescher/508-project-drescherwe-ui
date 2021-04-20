@@ -34,7 +34,7 @@ export class AuthService {
     let headers = {
       "Content-Type": "application/x-www-form-urlencoded"
     }
-    return this.http.post(`${API_URL}/v1/auth/login`, data, {headers: headers})
+    return this.http.post(`${API_URL}/api/auth/login`, data, {headers: headers})
       .pipe(
         map(
           (res: LoginSuccessResponse) => {
@@ -63,12 +63,14 @@ export class AuthService {
     ); 
   }
 
-  registerUser(username: string, password: string): Observable<User | HttpErrorResponse> {
+  registerUser(username: string, password: string, first_name: string, last_name: string): Observable<User | HttpErrorResponse> {
     let registerUserRequest: RegisterUserRequest = {
       email: username, 
-      password: password
+      password: password, 
+      first_name: first_name, 
+      last_name: last_name
     }
-    return this.http.post(`${API_URL}/v1/auth/register_account`, registerUserRequest).pipe(
+    return this.http.post(`${API_URL}/api/auth/signup`, registerUserRequest).pipe(
       map(
         (res: User) => {
           return res;
@@ -98,7 +100,7 @@ export class AuthService {
   }
 
   loadUser(): Observable<User | HttpErrorResponse> {
-    return this.http.get(`${API_URL}/v1/user/`).pipe(
+    return this.http.get(`${API_URL}/api/user/`).pipe(
       map(
         (res: User ) => {
           return res as User; 

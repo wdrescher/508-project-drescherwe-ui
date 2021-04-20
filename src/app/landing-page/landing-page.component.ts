@@ -73,11 +73,13 @@ export class LandingPageComponent implements OnInit {
   private _controlNameMapping: {[controlName: string]: string} = {
     username: 'Email',
     password: 'Password',
-    confirmPassword: 'Matching Password'
+    confirmPassword: 'Matching Password',
+    first_name: "First Name", 
+    last_name: "Last Name"
   };
   private _pageState = LandingPageState.LOGIN;
   private _controlNames = [
-    'username', 'password', 'confirmPassword'
+    'username', 'password', 'confirmPassword', 'last_name', 'first_name'
   ];
   private _token: string;
   private _nextRoute: string;
@@ -121,7 +123,9 @@ export class LandingPageComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       username: ['', Validators.email],
       password: [''],
-      confirmPassword: ['']
+      confirmPassword: [''], 
+      first_name: [''], 
+      last_name: ['']
     });
     this._checkToken();
     this.activatedRoute.data.subscribe( param => {
@@ -172,8 +176,14 @@ export class LandingPageComponent implements OnInit {
         window.analytics.track('click:signup');
         const controls = this.formGroup.controls;
         let username = controls["username"].value; 
-        this.authService.generateToken(
-          username.toString().toLowerCase(), 
+        let password = controls["password"].value; 
+        let first_name = controls["first_name"].value; 
+        let last_name = controls["last_name"].value;
+        this.authService.registerUser(
+          username.toString().toLowerCase(),
+          password, 
+          first_name, 
+          last_name
         )
         .pipe(take(1))
         .subscribe(
@@ -241,31 +251,31 @@ export class LandingPageComponent implements OnInit {
         //     }
         //   )
       }
-      else if (this.pageState === LandingPageState.SET_PASSWORD) {
-        window.analytics.track("set password"); 
-        let password = this.formGroup.controls["password"].value; 
-        let email = this.cookieService.get(AWAITING_VERIFICATION_KEY);
-        this.authService.registerUser(email, password)
-          .pipe(take(1))
-          .subscribe(
-            (res: User) => {
-              this._userStateService.loadUser(res);
-              this.authService.attemptLogin(email, password).subscribe(
-                (res: LoginSuccessResponse) => {
-                  this._login(res.access_token);
-                  this.router.navigateByUrl(AppState.GALLERY);
-                }
-              )
-            }, 
-            (err: HttpErrorResponse) => {
-              this.loginError = err.error.detail; 
-              this.isLoading = false; 
-            }, 
-            () => {
-              this.isLoading = false; 
-            }
-          )
-      }
+      // else if (this.pageState === LandingPageState.SET_PASSWORD) {
+      //   window.analytics.track("set password"); 
+      //   let password = this.formGroup.controls["password"].value; 
+      //   let email = this.cookieService.get(AWAITING_VERIFICATION_KEY);
+      //   this.authService.registerUser(email, password)
+      //     .pipe(take(1))
+      //     .subscribe(
+      //       (res: User) => {
+      //         this._userStateService.loadUser(res);
+      //         this.authService.attemptLogin(email, password).subscribe(
+      //           (res: LoginSuccessResponse) => {
+      //             this._login(res.access_token);
+      //             this.router.navigateByUrl(AppState.GALLERY);
+      //           }
+      //         )
+      //       }, 
+      //       (err: HttpErrorResponse) => {
+      //         this.loginError = err.error.detail; 
+      //         this.isLoading = false; 
+      //       }, 
+      //       () => {
+      //         this.isLoading = false; 
+      //       }
+      //     )
+      // }
     }
   }
 
@@ -337,6 +347,10 @@ export class LandingPageComponent implements OnInit {
         this.formGroup.controls.password.setValidators(Validators.minLength(PASSWORD_LENGTH));
         return;
       case LandingPageState.SIGNUP:
+        this.formGroup.controls.first_name.setValidators(Validators.required), 
+        this.formGroup.controls.last_name.setValidators(Validators.required),
+        this.formGroup.controls.confirmPassword.setValidators(LandingPageComponent.matchValues("password"));
+        this.formGroup.controls.password.setValidators(Validators.minLength(PASSWORD_LENGTH));
       default:
         return;
     }

@@ -2,7 +2,6 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SettingItem } from 'src/app/app.interface';
-import { SetupService } from 'src/app/setup/setup.service';
 
 @Component({
   selector: 'tattoo-form-builder',
@@ -19,6 +18,7 @@ export class FormBuilderComponent implements OnInit {
   }
 
   displayError(formGroup: FormGroup, controlName: string): boolean {
-    return SetupService.displayErrorMessage(formGroup, controlName);
+    return false
+    // return SetupService.displayErrorMessage(formGroup, controlName);
   }
 }

@@ -44,14 +44,6 @@ export class AppComponent implements OnInit{
     })
   }
 
-  get displayUploadModal(): boolean {
-    return this.appStateService.displayUploadModal; 
-  }
-
-  set displayUploadModal(input: boolean) {
-    this.appStateService.displayUploadModal = input; 
-  }
-
   get displayErrorModal(): boolean {
     return this.appStateService.displayErrorModal; 
   }

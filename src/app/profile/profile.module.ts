@@ -12,11 +12,13 @@ import { SharedModule } from '../shared/shared.module';
 import { BannerComponent } from './banner/banner.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ContentGridComponent } from './content-grid/content-grid.component';
-import { SubscriptionComponent } from './subscription/subscription.component';
 
 @NgModule({
-  declarations: [ProfileComponent, BannerComponent, SettingsComponent, ContentGridComponent, SubscriptionComponent],
+  declarations: [
+    ProfileComponent, 
+    BannerComponent, 
+    SettingsComponent
+  ],
   imports: [
     ReactiveFormsModule,
     CommonModule,

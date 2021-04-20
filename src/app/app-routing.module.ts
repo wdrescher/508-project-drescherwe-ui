@@ -2,11 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppState } from './app.interface';
-import { ContentDetailComponent } from './content-detail/content-detail.component';
 import { GalleryComponent } from './gallery/gallery/gallery.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LandingPageState } from './landing-page/landing-page.interface';
-import { ContentGuard } from './services/content.guard';
 import { SustainingLoginGuard } from './services/sustaining-login.guard';
 import { MustBeLoggedInGuard } from './services/must-be-logged-in.guard';
 import { HomeGuard} from './services/home.guard';
@@ -23,9 +21,7 @@ const routes: Routes = [
       { path: `${AppState.EMAIL_VERIFICATION}/:token`, component: LandingPageComponent, data: { pageState: LandingPageState.EMAIL_VERIFICATION } },
       {
         path: "", canActivate: [MustBeLoggedInGuard, UserGuard], children: [
-          { path: "setup", loadChildren: () => import('./setup/setup.module').then(m => m.SetupModule) },
           { path: AppState.GALLERY, component: GalleryComponent },
-          { path: `${AppState.DETAIL}/:contentId`, canActivate: [ContentGuard], component: ContentDetailComponent }, 
           { path: AppState.PROFILE, loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)}
         ]
       },

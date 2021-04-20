@@ -79,24 +79,6 @@ export class SettingsComponent implements OnInit {
         type: 'text',
         errorCode: "Please enter a last",
       },
-      {
-        label: "Twitter",
-        previousValue: this._userStateService.twitterUrl,
-        formControlName: "twitter_url",
-        validators: [Validators.pattern(this.linkRegex("twitter"))],
-        type: 'text',
-        errorCode: "Please enter a valid twitter url",
-        httpField: true,
-      },
-      {
-        label: "Instagram",
-        previousValue: this._userStateService.instagramUrl,
-        formControlName: "instagram_url",
-        validators: [Validators.pattern(this.linkRegex("instagram"))],
-        type: 'text',
-        errorCode: "Please enter a valid instagram url",
-        httpField: true
-      }
     ];
 
     let securitySettings: SettingItem[] = [
@@ -119,50 +101,50 @@ export class SettingsComponent implements OnInit {
       },
     ]
 
-    let addressSettings: SettingItem[] = [
-      {
-        label: "Address",
-        previousValue: this._userStateService.addressLine1,
-        formControlName: "street_address",
-        validators: [Validators.required],
-        type: 'text',
-        errorCode: "Please enter a street address",
-      },
-      {
-        label: "Address: Line 2",
-        previousValue: this._userStateService.addressLine2,
-        formControlName: 'street_address_line_2',
-        validators: [],
-        type: 'text',
-        errorCode: "Please enter address line 2"
-      },
-      {
-        label: "City",
-        previousValue: this._userStateService.city,
-        formControlName: 'city',
-        validators: [Validators.required],
-        type: 'text',
-        errorCode: "Please enter a valid city"
-      },
-      {
-        label: "State or Province",
-        previousValue: this._userStateService.stateOrProvince,
-        formControlName: 'state_or_province',
-        validators: [Validators.required],
-        type: 'text',
-        errorCode: "Please enter a valid state or province"
-      },
-      {
-        label: "Country",
-        options: COUNTRIES,
-        previousValue: COUNTRIES.find( elem => elem.code === (!!this._userStateService.country ? this._userStateService.country : 'US')),
-        formControlName: 'country',
-        validators: [Validators.required],
-        type: 'select',
-        errorCode: "Please enter a valid country",
-        isCountry: true
-      }
-    ]
+    // let addressSettings: SettingItem[] = [
+    //   {
+    //     label: "Address",
+    //     previousValue: this._userStateService.addressLine1,
+    //     formControlName: "street_address",
+    //     validators: [Validators.required],
+    //     type: 'text',
+    //     errorCode: "Please enter a street address",
+    //   },
+    //   {
+    //     label: "Address: Line 2",
+    //     previousValue: this._userStateService.addressLine2,
+    //     formControlName: 'street_address_line_2',
+    //     validators: [],
+    //     type: 'text',
+    //     errorCode: "Please enter address line 2"
+    //   },
+    //   {
+    //     label: "City",
+    //     previousValue: this._userStateService.city,
+    //     formControlName: 'city',
+    //     validators: [Validators.required],
+    //     type: 'text',
+    //     errorCode: "Please enter a valid city"
+    //   },
+    //   {
+    //     label: "State or Province",
+    //     previousValue: this._userStateService.stateOrProvince,
+    //     formControlName: 'state_or_province',
+    //     validators: [Validators.required],
+    //     type: 'text',
+    //     errorCode: "Please enter a valid state or province"
+    //   },
+    //   {
+    //     label: "Country",
+    //     options: COUNTRIES,
+    //     previousValue: COUNTRIES.find( elem => elem.code === (!!this._userStateService.country ? this._userStateService.country : 'US')),
+    //     formControlName: 'country',
+    //     validators: [Validators.required],
+    //     type: 'select',
+    //     errorCode: "Please enter a valid country",
+    //     isCountry: true
+    //   }
+    // ]
 
     this.settingMap = {
       "Account": {
@@ -173,10 +155,10 @@ export class SettingsComponent implements OnInit {
         formGroup: this.createFormGroup(securitySettings),
         settings: securitySettings
       },
-      'Address': {
-        formGroup: this.createFormGroup(addressSettings),
-        settings: addressSettings
-      }
+      // 'Address': {
+      //   formGroup: this.createFormGroup(addressSettings),
+      //   settings: addressSettings
+      // }
     }
 
     this._activatedRoute.data.subscribe((response) => {

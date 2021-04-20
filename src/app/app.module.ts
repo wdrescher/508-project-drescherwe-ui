@@ -6,7 +6,6 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { Ng2ImgMaxModule } from 'ng2-img-max';
 
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
@@ -22,13 +21,9 @@ import { AppComponent } from './app.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { GalleryComponent } from './gallery/gallery/gallery.component';
-import { ContentDetailComponent } from './content-detail/content-detail.component';
-import { UploadComponent } from './upload/upload.component';
 import { CookieService } from 'ngx-cookie-service';
-import { ContentSelectorComponent } from './upload/content-selector/content-selector.component';
 
 import { AuthInterceptor } from './services/auth.interceptor';
-import { MessageService } from 'primeng/api';
 
 declare global {
   interface Window {
@@ -40,10 +35,7 @@ declare global {
   declarations: [
     AppComponent,
     LandingPageComponent,
-    GalleryComponent,
-    ContentDetailComponent,
-    UploadComponent,
-    ContentSelectorComponent,
+    GalleryComponent
   ],
   imports: [
     CarouselModule,
@@ -62,7 +54,6 @@ declare global {
     InputTextModule,
     InputSwitchModule, 
     InfiniteScrollModule,
-    Ng2ImgMaxModule, 
     MessagesModule,
     MessageModule
   ],

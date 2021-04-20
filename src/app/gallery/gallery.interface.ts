@@ -1,9 +1,7 @@
-import { Content } from 'src/app/shared/content/content.interface';
 import { Paginator } from '../app.interface';
 
 export interface TileData {
     name: string; 
-    content?: Content
 }
 
 export interface FeedResponse {
