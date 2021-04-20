@@ -1,0 +1,5 @@
+<div class="profile">
+    <tattoo-banner style="width: 100%" [edit]="isEditing" (editEvent)="editEvent($event)" [isUserProfile]="isUserProfile" [username]="username"></tattoo-banner>
+    <tattoo-content-grid *ngIf="!isEditing" [username]="username"></tattoo-content-grid>
+    <tattoo-settings style="width: 100%" *ngIf="isEditing"></tattoo-settings>
+</div>

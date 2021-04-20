@@ -1,0 +1,7 @@
+<div class="subscription">
+    <ng-container *ngIf="!isLoading">
+        <button *ngIf="subscribed" pButton label="Unsubscribe" class="p-button-danger" icon="pi pi-eye-slash" (click)="unsubscribe()"></button>
+        <button *ngIf="!subscribed" pButton label="Subscribe" (click)="subscribe()" icon="pi pi-eye"></button>
+    </ng-container>
+    <i *ngIf="isLoading" class="pi pi-spin pi-spinner"></i>
+</div>

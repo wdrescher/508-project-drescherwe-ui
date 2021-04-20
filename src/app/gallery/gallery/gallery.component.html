@@ -1,0 +1,21 @@
+<div *ngIf="awaitingVerification" class="tattoo-gallery-verify">
+    <div class="tattoo-gallery-verify__text">
+        Verify your email now to get full access
+    </div>
+    <p-button (click)="resendEmail()" [icon]="iconText">
+        <div *ngIf="!isResendEmailLoading">{{buttonText}}</div>
+        <i *ngIf="isResendEmailLoading" class="pi pi-spin pi-spinner"></i>
+    </p-button>
+</div>
+<div class="tattoo-gallery">
+    <div class="tattoo-gallery__container" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+        <ng-container *ngFor="let tile of feed; let i = index">
+            <tattoo-tile *ngIf="!!tile.content" [tile]="tileData(tile)" [ngStyle]="{'margin-top': i === 0 ? '0' : '24px'}"
+                style="width: 100%">
+            </tattoo-tile>
+            <div *ngIf="!tile.content" class="tattoo-gallery__skeleton" [ngStyle]="{'margin-top': i === 0 ? '0' : '24px'}">
+                <tattoo-skeleton style="width: 100%"></tattoo-skeleton>
+            </div>
+        </ng-container>
+    </div>
+</div>

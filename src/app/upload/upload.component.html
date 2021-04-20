@@ -1,0 +1,50 @@
+<div class="upload">
+    <ng-container *ngIf="!isSuccess">
+        <p-carousel *ngIf="files.length >= 2" class="upload__carousel" [value]="files"
+            [responsiveOptions]="responsiveOptions">
+            <ng-template let-file pTemplate="item">
+                <tattoo-content-selector [contentTracker]="file" [accept]="acceptedMediaTypes" [(isVideo)]="isVideo">
+                </tattoo-content-selector>
+            </ng-template>
+        </p-carousel>
+
+        <tattoo-content-selector *ngIf="files.length === 1" [contentTracker]="files[0]" [(isVideo)]="isVideo">
+        </tattoo-content-selector>
+
+        <ng-container *ngIf="files.length === 0">
+            <tattoo-icon-message icon="search" message="Add some content to get started"></tattoo-icon-message>
+        </ng-container>
+
+        <form [formGroup]="formGroup" *ngIf="displayCropper" (ngSubmit)="post()" class="upload__form">
+            <label for="caption" style="font-size: 12px">Caption</label>
+            <textarea class="upload__form-text-area" id="caption" formControlName="caption" rows="1" cols="44"
+                pInputTextarea autoResize="autoResize"></textarea>
+
+            <div class="upload__form-row">
+                <div style="display:flex; flex-flow: row nowrap; align-items: flex-end">
+                    <div class="upload__form-premium">
+                        Premium
+                        <p-inputSwitch formControlName="premium"></p-inputSwitch>
+                    </div>
+                    <p-button *ngIf="!isLoading && !isResizerLoading" [disabled]="!isReady" type="submit" label="Post"
+                        [style]="{'margin-left': '12px', 'margin-bottom': '3px'}"></p-button>
+                    <p-button *ngIf="isLoading || isResizerLoading" icon="pi pi-spin pi-spinner"
+                        [style]="{'margin-left': '12px', 'margin-bottom': '3px'}"></p-button>
+                    <ng-container #addMoreContent *ngIf="canAddMore">
+                        <label for="nextFile" style="margin-left: 12px; margin-bottom: 3px">
+                            <span pButton icon="pi pi-plus" class="p-button-secondary"></span>
+                        </label>
+                        <input type="file" id="nextFile" [accept]="acceptedMediaTypes"
+                            (change)="addNewFile($event.target.files[0])">
+                    </ng-container>
+                </div>
+
+                <button type="reset" pButton class="p-button-danger" (click)="discard()" icon="pi pi-trash"
+                    style="margin-bottom: 3px;"></button>
+            </div>
+        </form>
+    </ng-container>
+    <ng-container *ngIf="isSuccess">
+        <tattoo-icon-message icon="check" message="Done"></tattoo-icon-message>
+    </ng-container>
+</div>

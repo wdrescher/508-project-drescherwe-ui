@@ -1,0 +1,10 @@
+<div class="media">
+    <ng-container *ngIf="!strictSizing">
+        <img *ngIf="displaySmall" [src]="small" [alt]="description" class="tattoo-media__small">
+        <img *ngIf="displayMedium" [src]="medium" [alt]="description" class="tattoo-media__medium">
+        <img *ngIf="displayLarge" [src]="large" [alt]="description" class="tattoo-media__large">
+    </ng-container>
+    <ng-container *ngIf="strictSizing">
+        <img [src]="large" [alt]="description" class="tattoo-media__img">
+    </ng-container>
+</div>

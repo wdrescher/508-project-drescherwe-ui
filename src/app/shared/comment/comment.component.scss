@@ -1,0 +1,12 @@
+@import 'styles'; 
+
+.tattoo-comment {
+    display: flex;
+    flex-flow: row nowrap; 
+    align-items: center;
+    justify-content: flex-start;
+
+    &__author {
+        font-weight: 600; 
+    }
+}

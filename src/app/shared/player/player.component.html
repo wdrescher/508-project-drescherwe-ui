@@ -1,0 +1,5 @@
+<vg-player *ngIf="!!safeSrc" style="height: min-content">
+    <video [vgMedia]="media" #media preload="auto" controls style="width: 100%; height: min-content" [ngStyle]="{'height': size + 'px'}">
+        <source [src]="safeSrc" type="video/mp4">
+    </video>
+</vg-player>

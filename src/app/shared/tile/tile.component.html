@@ -1,0 +1,29 @@
+<div class="tile">
+    <p-button styleClass="tile__row p-button-text p-button-plain" (click)="navigateToUser()">
+        <tattoo-avatar></tattoo-avatar>
+        <div class="tattoo-text-sub-title">{{tile.name}}</div>
+    </p-button>
+    <!-- <button class="button-unstyled" style="overflow: hidden" (click)="inspectContent()"> -->
+    <tattoo-content [content]="tile.content" style="border-radius: 5px; overflow: hidden"></tattoo-content>
+    <div class="tile__action-row">
+        <div class="tile__action-row--block">
+            <button pButton icon="pi pi-circle-off" class="p-button-rounded p-button-text"></button>
+            <button pButton icon="pi pi-comment" class="p-button-rounded p-button-text" (click)="toggleComment()"></button>
+        </div>
+        <div class="tile__action-row--block">
+            <div *ngIf="displayPopup" (clickOutside)="shouldClosePopup()" class="p-shadow-6 tile__popup">
+                <button pButton *ngIf="!isUserPost" icon="pi pi-ban" class="p-button-rounded p-button-text p-button-danger" label="Report"></button>
+                <button pButton *ngIf="isUserPost" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger" label="Delete"></button>
+            </div>
+            <button pButton icon="pi pi-ellipsis-h" class="p-button-rounded p-button-text" (click)="togglePopup()"></button>
+        </div>
+    </div>
+    <div class="tile__comments">
+        <tattoo-comment *ngIf="!!description" [author]="tile.name" [body]="description"></tattoo-comment>
+        <tattoo-comment *ngFor="let comment of comments; let i = index" [author]="comment.author" [body]="comment.body" [ngStyle]="{'margin-top': !description && i === 0 ? '' : '8px'}"></tattoo-comment>
+        <form [formGroup]="formGroup" *ngIf="makeComment" class="tile__form" (ngSubmit)="postComment()">
+            <input type="text" style="width: 100%" pInputText formControlName="comment">
+            <button pButton type="submit" [disabled]="!canPost" icon="pi pi-comment"></button>
+        </form>
+    </div>
+</div>
