@@ -9,6 +9,8 @@ import { SustainingLoginGuard } from './services/sustaining-login.guard';
 import { MustBeLoggedInGuard } from './services/must-be-logged-in.guard';
 import { HomeGuard} from './services/home.guard';
 import { UserGuard } from './services/user.guard'; 
+import { BookingGuard } from './services/booking.guard';
+import { BookingComponent } from './booking/booking.component';
 
 const routes: Routes = [
   {
@@ -20,9 +22,10 @@ const routes: Routes = [
       { path: AppState.SET_PASSWORD, component: LandingPageComponent, data: { pageState: LandingPageState.SET_PASSWORD } },
       { path: `${AppState.EMAIL_VERIFICATION}/:token`, component: LandingPageComponent, data: { pageState: LandingPageState.EMAIL_VERIFICATION } },
       {
-        path: "", canActivate: [MustBeLoggedInGuard, UserGuard], children: [
+        path: "", canActivate: [MustBeLoggedInGuard, UserGuard, BookingGuard], children: [
           { path: AppState.GALLERY, component: GalleryComponent },
-          { path: AppState.PROFILE, loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)}
+          { path: AppState.PROFILE, loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)}, 
+          { path: AppState.BOOKINGS, component: BookingComponent }
         ]
       },
     ]

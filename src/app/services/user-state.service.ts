@@ -75,4 +75,8 @@ export class UserStateService {
   get email(): string {
     return this.isDefined ? this._user.email : "";
   }
+
+  get profileId(): number {
+    return this.isDefined ? this._user.profile_id : undefined; 
+  }
 }

@@ -4,11 +4,15 @@
     min-height: 100%; 
     @include max-width; 
     margin: auto;
+    display: flex; 
+    flex-flow: column nowrap; 
 
     &__container {
         display: flex;
         flex-flow: column nowrap; 
         align-items: center;
+        justify-content: flex-start;
+        height: 100%; 
         margin: 24px 0;
     }
 
@@ -36,5 +40,12 @@
         border-radius: 5px; 
         padding: 24px; 
         width: 100%; 
+    }
+
+    &__modal {
+        display: flex;
+        flex-flow: column nowrap; 
+        align-items: flex-start;
+        justify-content: flex-start;
     }
 }

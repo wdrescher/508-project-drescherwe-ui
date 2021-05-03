@@ -42,11 +42,31 @@ export interface Settings {
 }
 
 export interface User {
+    profile_id: number;
     username: string; 
     email: string; 
     first_name: string; 
     last_name: string; 
 }
+
+export interface Artist {
+    max_bookings: number, 
+    is_manager:	boolean
+    minimum_price: number
+    parlor_id: number
+}
+
+export interface Booking {
+    artist_id: number,
+    client_id: number,
+    booking_id: number,
+    design_description: string,
+    design_approved: boolean,
+    price: number,
+    price_approved: boolean
+  }
+
+export interface ArtistProfile extends User, Artist {}
 
 export interface Client {
     payment_id: string; 
@@ -83,7 +103,8 @@ export enum AppState {
     ACCOUNT_SETTINGS = 'account',
     PASSWORD_SETTINGS = 'password', 
     BILLING_SETTINGS = 'billing', 
-    ADDRESS_SETTINGS = 'address'
+    ADDRESS_SETTINGS = 'address',
+    BOOKINGS = "bookings"
 }
 
 export enum FileType { 

@@ -8,8 +8,34 @@
     </p-button>
 </div>
 <div class="tattoo-gallery">
-    <div class="tattoo-gallery__container">
-        <ng-container *ngFor="let tile of feed; let i = index">
-        </ng-container>
-    </div>
+    <h2>Book an appointment</h2>
+    <p-card *ngFor="let artist of artists; let i = index" [ngStyle]="{'margin-top': i === 0 ? '' : '24px'}">
+        <div>{{artist.first_name}} {{artist.last_name}}</div>
+        <div *ngIf="artist.minimum_price > 0">Minimum Price: ${{artist.minimum_price}}</div>
+        <p-button label="Request appointment" (click)="bookArtist(artist)"></p-button>
+        <small style="margin-top: 24px"></small>
+        <div *ngIf="hasBooking(artist)" style="margin-top: 24px; display: flex; flex-flow: column nowrap">
+            <small>You already have a booking with this artist</small>  
+            <p-button styleClass="p-button-secondary" label="View"></p-button>
+        </div>
+    </p-card>
 </div>
+
+<p-dialog *ngIf="!!bookedArtist" [header]="'Request a tattoo with ' + bookedArtist.first_name"
+    [(visible)]="displayBookingModal" [dismissableMask]="true" [showHeader]="true" [focusTrap]="true"
+    [draggable]="false" [modal]="true">
+    <div *ngIf="!submitted" class="tattoo-gallery__modal">
+        <div>{{bookedArtist.first_name}} {{bookedArtist.last_name}}</div>
+        <form [formGroup]="requestAppointmentForm" class="tattoo-gallery__modal" (ngSubmit)="onSubmitRequest()">
+            <label for="design_description">Please describe the tattoo you would like</label>
+            <textarea id="design_description" formControlName="design_description" rows="5" cols="30"
+                pInputTextarea></textarea>
+            <p-button [style]="{'margin-top': '12px'}" type="submit" [disabled]="!requestAppointmentForm.valid"
+                [label]="isLoadingRequest ? '' : 'Submit'" [icon]="isLoadingRequest ? 'pi pi-spin pi-spinner' : ''" styleClass="p-button-success"></p-button>
+        </form>
+    </div>
+    <ng-container *ngIf="submitted">
+        <tattoo-icon-message icon="pi pi-check" message="Success"></tattoo-icon-message>
+        <div style="text-align: center; font-size: 12px; margin-top: 24px">Request submitted, you should <br> hear back from the artist in 24-48 hours</div>
+    </ng-container>
+</p-dialog>
