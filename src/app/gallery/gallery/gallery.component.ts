@@ -6,6 +6,7 @@ import { AppState, Artist, ArtistProfile, User } from 'src/app/app.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppStateService } from 'src/app/services/app-state.service';
 import { BookingService } from 'src/app/services/booking.service';
+import { Router } from '@angular/router';
 
 interface ContentTracker {
   name: string; 
@@ -38,7 +39,8 @@ export class GalleryComponent implements OnInit {
     private _galleryService: GalleryService, 
     private _formBuilder: FormBuilder, 
     private _appStateService: AppStateService, 
-    private _bookingService: BookingService
+    private _bookingService: BookingService, 
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -94,5 +96,9 @@ export class GalleryComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  goToAppointments(): void {
+    this._router.navigateByUrl(AppState.BOOKINGS)
   }
 }

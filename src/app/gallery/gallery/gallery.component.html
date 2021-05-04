@@ -16,7 +16,7 @@
         <small style="margin-top: 24px"></small>
         <div *ngIf="hasBooking(artist)" style="margin-top: 24px; display: flex; flex-flow: column nowrap">
             <small>You already have a booking with this artist</small>  
-            <p-button styleClass="p-button-secondary" label="View"></p-button>
+            <p-button styleClass="p-button-secondary" label="View" (click)="goToAppointments()"></p-button>
         </div>
     </p-card>
 </div>

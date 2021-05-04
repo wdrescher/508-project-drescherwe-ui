@@ -11,6 +11,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CardModule } from 'primeng/card';
+import { TagModule } from 'primeng/tag';
+import { TooltipModule } from 'primeng/tooltip';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { CalendarModule } from 'primeng/calendar';
+import { CarouselModule } from 'primeng/carousel';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -49,7 +54,12 @@ declare global {
     ButtonModule,
     InputTextModule,
     InfiniteScrollModule,
-    CardModule
+    CardModule,
+    TagModule,
+    TooltipModule,
+    InputNumberModule, 
+    CalendarModule,
+    CarouselModule
   ],
   providers: [
     CookieService, 
