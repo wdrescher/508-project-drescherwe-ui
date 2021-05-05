@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ArtistService } from 'src/app/services/artist.service';
 import { GalleryService } from '../gallery.service';
 import { UserStateService } from 'src/app/services/user-state.service';
 import { AppState, Artist, ArtistProfile, User } from 'src/app/app.interface';
@@ -7,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppStateService } from 'src/app/services/app-state.service';
 import { BookingService } from 'src/app/services/booking.service';
 import { Router } from '@angular/router';
+import { FixedSizeVirtualScrollStrategy } from '@angular/cdk/scrolling';
 
 interface ContentTracker {
   name: string; 
@@ -23,6 +25,8 @@ export class GalleryComponent implements OnInit {
   buttonText = "Resend"
   iconText = "";
   requestAppointmentForm: FormGroup; 
+  displayArtistModal = false; 
+  artistFormGroup: FormGroup; 
 
   submitted: boolean = false; 
   bookedArtist: ArtistProfile; 
@@ -40,12 +44,18 @@ export class GalleryComponent implements OnInit {
     private _formBuilder: FormBuilder, 
     private _appStateService: AppStateService, 
     private _bookingService: BookingService, 
-    private _router: Router
+    private _router: Router, 
+    private _artistService: ArtistService, 
   ) { }
 
   ngOnInit(): void {
     this.requestAppointmentForm = this._formBuilder.group({
       'design_description': ['', [Validators.required, Validators.maxLength(500)]]
+    })
+
+    this.artistFormGroup = this._formBuilder.group({
+      'minimum_price': [''], 
+      'max_bookings': ['']
     })
 
     this._galleryService.getArtists().subscribe(
@@ -100,5 +110,19 @@ export class GalleryComponent implements OnInit {
 
   goToAppointments(): void {
     this._router.navigateByUrl(AppState.BOOKINGS)
+  }
+
+  onArtistSubmit(): void {
+    const minimumPrice = this.artistFormGroup.controls['minimum_price'].value; 
+    const maxBookings = this.artistFormGroup.controls['max_bookings'].value; 
+    this._artistService.createArtist(minimumPrice, maxBookings).subscribe(
+      () => {
+        this.displayArtistModal = false; 
+      }
+    ); 
+  }
+
+  get isArtist(): boolean { 
+    return this._userStateService.isArtist;
   }
 }

@@ -79,4 +79,8 @@ export class UserStateService {
   get profileId(): number {
     return this.isDefined ? this._user.profile_id : undefined; 
   }
+
+  get isArtist(): boolean {
+    return this.isDefined ?  this._user.is_artist : false; 
+  }
 }

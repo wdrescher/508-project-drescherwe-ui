@@ -19,6 +19,7 @@
             <p-button styleClass="p-button-secondary" label="View" (click)="goToAppointments()"></p-button>
         </div>
     </p-card>
+    <button *ngIf="!isArtist" style="margin-top: 24px;" pButton label="Become an artist" class="p-button-secondary" (click)="displayArtistModal = true"></button>
 </div>
 
 <p-dialog *ngIf="!!bookedArtist" [header]="'Request a tattoo with ' + bookedArtist.first_name"
@@ -38,4 +39,12 @@
         <tattoo-icon-message icon="pi pi-check" message="Success"></tattoo-icon-message>
         <div style="text-align: center; font-size: 12px; margin-top: 24px">Request submitted, you should <br> hear back from the artist in 24-48 hours</div>
     </ng-container>
+</p-dialog>
+
+<p-dialog [modal]="true" [(visible)]="displayArtistModal" header="Become an artist">
+    <form [formGroup]="artistFormGroup" style="display: flex; flex-flow: column nowrap; align-items: flex-start"  (ngSubmit)="onArtistSubmit()">
+        <input formControlName="minimum_price" type="text" pInputText placeholder="Minimum Price">
+        <input formControlName="max_bookings" style="margin-top: 12px" type="text" pInputText placeholder="Max Bookings per Day">
+        <button style="margin-top: 12px" type="submit" pButton class="p-button-success" label="Submit"></button>
+    </form>
 </p-dialog>
