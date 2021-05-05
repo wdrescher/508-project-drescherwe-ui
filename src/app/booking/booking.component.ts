@@ -141,4 +141,35 @@ export class BookingComponent implements OnInit {
     this.currentBooking = booking; 
     this.displayTimeSlotModal = true;  
   }
+
+  get dateList(): string[] {
+    const times = []; 
+      for (let i = 1; i <= 3; i++) {
+        let date: Date = this.timeFormGroup.controls[`date_${i}`].value;
+        times.push(date.toISOString())
+      }
+    return times; 
+  }
+
+  get datesUnique(): boolean {
+    const dates = this.dateList; 
+    if (this.dateList.length != 3) {
+      return false; 
+    }
+    return (dates[0] !== dates[1] && dates[0] !== dates[2] && dates[1] !== dates[2])
+  }
+
+  submitAppointmentTime(): void {
+    if (this.timeFormGroup.valid && this.datesUnique) {
+      this._bookingService.schedule(this.currentBooking.booking_id, this.dateList).subscribe(
+        () => {
+          this.displayTimeSlotModal = false; 
+        }
+      )
+    }
+  }
+
+  get timeGroupDisabled(): boolean {
+    return !(this.timeFormGroup.valid && this.datesUnique)
+  }
 }

@@ -60,7 +60,7 @@
             <p-calendar formControlName="date_2" [inline]="true" [showTime]="true"></p-calendar>    
             <label for="date_3"><strong>3rd Choice</strong></label>
             <p-calendar formControlName="date_3" [inline]="true" [showTime]="true"></p-calendar>    
-            <button type="submit" [disabled]="!timeFormGroup.valid" pButton styleClass="p-button-success" label="Approve Price and Set Times"></button>
+            <button type="submit" [disabled]="timeGroupDisabled" pButton styleClass="p-button-success" label="Approve Price and Set Times" (click)="submitAppointmentTime()"></button>
         </form>
     </p-dialog>
 </div>

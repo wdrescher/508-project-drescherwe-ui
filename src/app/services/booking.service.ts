@@ -42,4 +42,14 @@ export class BookingService {
       (err: HttpErrorResponse) => err as HttpErrorResponse
     ))
   }
+
+  schedule(bookingId: number, times: string[]): Observable<HttpResponseBase | HttpErrorResponse> {
+    let data = {
+      times: times
+    }
+    return this._http.post(`${API_URL}/api/booking/${bookingId}/time-slot`, data).pipe(map(
+      (res: HttpResponseBase) => res as HttpResponseBase, 
+      (err: HttpErrorResponse) => err as HttpErrorResponse
+    ))
+  }
 }
