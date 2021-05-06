@@ -125,4 +125,8 @@ export class GalleryComponent implements OnInit {
   get isArtist(): boolean { 
     return this._userStateService.isArtist;
   }
+
+  navigateToParlor(): void {
+    this._router.navigateByUrl(AppState.PARLORS)
+  }
 }

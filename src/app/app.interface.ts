@@ -105,7 +105,8 @@ export enum AppState {
     PASSWORD_SETTINGS = 'password', 
     BILLING_SETTINGS = 'billing', 
     ADDRESS_SETTINGS = 'address',
-    BOOKINGS = "bookings"
+    BOOKINGS = "bookings",
+    PARLORS = 'parlor'
 }
 
 export enum FileType { 

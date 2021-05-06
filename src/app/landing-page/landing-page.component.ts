@@ -189,9 +189,14 @@ export class LandingPageComponent implements OnInit {
         .subscribe(
           () => {
             window.analytics.track("new user")
-            this.isLoading = false;
-            this._userStateService.tempLogin(username);
-            this.router.navigateByUrl(AppState.GALLERY)
+            this.authService.attemptLogin(username, password)
+            .pipe(take(1))
+            .subscribe(
+              (response: LoginSuccessResponse) => {
+                this.isLoading = false;
+                this._login(response.access_token);
+              }
+            )
           },
           (response: HttpErrorResponse) => {
             if (response.status === 409) {

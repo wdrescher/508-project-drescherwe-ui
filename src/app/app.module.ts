@@ -26,6 +26,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { AuthInterceptor } from './services/auth.interceptor';
 import { BookingComponent } from './booking/booking.component';
+import { ParlorComponent } from './parlor/parlor.component';
 
 declare global {
   interface Window {
@@ -38,7 +39,8 @@ declare global {
     AppComponent,
     LandingPageComponent,
     GalleryComponent,
-    BookingComponent
+    BookingComponent,
+    ParlorComponent
   ],
   imports: [
     InputTextareaModule,

@@ -11,6 +11,7 @@ import { HomeGuard} from './services/home.guard';
 import { UserGuard } from './services/user.guard'; 
 import { BookingGuard } from './services/booking.guard';
 import { BookingComponent } from './booking/booking.component';
+import { ParlorComponent } from './parlor/parlor.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,8 @@ const routes: Routes = [
         path: "", canActivate: [MustBeLoggedInGuard, UserGuard, BookingGuard], children: [
           { path: AppState.GALLERY, component: GalleryComponent },
           { path: AppState.PROFILE, loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)}, 
-          { path: AppState.BOOKINGS, component: BookingComponent }
+          { path: AppState.BOOKINGS, component: BookingComponent }, 
+          { path: AppState.PARLORS, component: ParlorComponent }
         ]
       },
     ]

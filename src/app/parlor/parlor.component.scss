@@ -1,0 +1,36 @@
+@import 'styles';
+
+.parlor {
+    display: flex;
+    flex-flow: column nowrap; 
+    align-items: center;
+    justify-content: center;
+
+    &__container {
+        width: 100%; 
+        max-width: 500px;
+        display: flex;
+        flex-flow: column nowrap; 
+        align-items: flex-start;
+        justify-content: flex-start;
+        background-color: var(--surface-a);
+        min-height: 20px;
+        border-radius: 5px; 
+        padding: 24px;
+        margin: 24px 0; 
+
+        &-separator {
+            flex-basis: 40%; 
+            height: 1px; 
+            background-color: black;
+        }
+    }
+
+    &__form {
+        display: flex;
+        flex-flow: column nowrap; 
+        align-items: flex-start;
+        justify-content: space-evenly;
+        height: max-content; 
+    }
+}

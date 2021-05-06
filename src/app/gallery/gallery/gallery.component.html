@@ -1,4 +1,4 @@
-<div *ngIf="awaitingVerification" class="tattoo-gallery-verify">
+<div *ngIf="false" class="tattoo-gallery-verify">
     <div class="tattoo-gallery-verify__text">
         Verify your email now to get full access
     </div>
@@ -20,6 +20,7 @@
         </div>
     </p-card>
     <button *ngIf="!isArtist" style="margin-top: 24px;" pButton label="Become an artist" class="p-button-secondary" (click)="displayArtistModal = true"></button>
+    <button *ngIf="isArtist" style="margin-top: 24px;" pButton label="Join or Create a Parlor" class="p-button-secondary" (click)="navigateToParlor()"></button>
 </div>
 
 <p-dialog *ngIf="!!bookedArtist" [header]="'Request a tattoo with ' + bookedArtist.first_name"
