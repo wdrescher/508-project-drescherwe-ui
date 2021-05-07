@@ -1,26 +1,42 @@
 <div class="parlor">
     <div class="parlor__container">
-        <form [formGroup]="joinFormGroup" style="width: 100%" (ngSubmit)="joinParlor()" class="parlor__form">
-            <h2 for="">Join a parlor</h2>
-            <input pInputText placeholder="Parlor Unique ID" type="text" id="parlor_id">
-            <button style="margin-top: 12px" type="submit" pButton label="Join" class="p-button-success"></button>
-        </form>
-        <div style="display:flex; flex-flow: row nowrap; align-items: center; width: 100%; justify-content: space-between;">
-            <div class="parlor__container-separator"></div>
-            <div>or</div>
-            <div class="parlor__container-separator"></div>
-        </div>
+        <ng-container *ngIf="!hasParlor">
+            <form [formGroup]="joinFormGroup" style="width: 100%" (ngSubmit)="joinParlor()" class="parlor__form">
+                <h2 for="">Join a parlor</h2>
+                <input pInputText placeholder="Parlor Unique ID" type="text" id="parlor_id">
+                <button style="margin-top: 12px" type="submit" pButton label="Join" class="p-button-success"></button>
+            </form>
+            <div style="display:flex; flex-flow: row nowrap; align-items: center; width: 100%; justify-content: space-between;">
+                <div class="parlor__container-separator"></div>
+                <div>or</div>
+                <div class="parlor__container-separator"></div>
+            </div>
+    
+            <h2>Start a Parlor</h2>
+            <form [formGroup]="createFormGroup" (ngSubmit)="createParlor()" class="parlor__form">
+                <input type="text" pInputText placeholder="Parlor Name" formControlName="name">
+                <input type="text" pInputText placeholder="Shop Commission" formControlName="shop_commission"  style="margin-top: 12px">
+                <input type="text" pInputText placeholder="Address Line 1" formControlName="address_line_1" style="margin-top: 12px">
+                <input type="text" pInputText placeholder="Address Line 2" formControlName="address_line_2" style="margin-top: 12px">
+                <input type="text" pInputText placeholder="City" formControlName="city" style="margin-top: 12px">
+                <input type="text" pInputText placeholder="State" formControlName="state" style="margin-top: 12px">
+                <input type="text" pInputText placeholder="Zip" formControlName="zip" style="margin-top: 12px">
+                <button type="submit" class="p-button-success" label="Create" pButton style="margin-top: 12px"></button>
+            </form>
+        </ng-container>
 
-        <h2>Start a Parlor</h2>
-        <form [formGroup]="createFormGroup" (ngSubmit)="createParlor()" class="parlor__form">
-            <input type="text" pInputText placeholder="Parlor Name" formControlName="name">
-            <input type="text" pInputText placeholder="Shop Commission" formControlName="shop_commission"  style="margin-top: 12px">
-            <input type="text" pInputText placeholder="Address Line 1" formControlName="address_line_1" style="margin-top: 12px">
-            <input type="text" pInputText placeholder="Address Line 2" formControlName="address_line_2" style="margin-top: 12px">
-            <input type="text" pInputText placeholder="City" formControlName="city" style="margin-top: 12px">
-            <input type="text" pInputText placeholder="State" formControlName="state" style="margin-top: 12px">
-            <input type="text" pInputText placeholder="Zip" formControlName="zip" style="margin-top: 12px">
-            <button type="submit" class="p-button-success" label="Create" pButton style="margin-top: 12px"></button>
-        </form>
+        <ng-container *ngIf="hasParlor">
+            <form [formGroup]="editParlor" (ngSubmit)="createParlor()" class="parlor__form">
+                <input type="text" pInputText placeholder="Parlor Name" formControlName="name">
+                <input type="text" pInputText placeholder="Shop Commission" formControlName="shop_commission"  style="margin-top: 12px">
+                <input type="text" pInputText placeholder="Address Line 1" formControlName="address_line_1" style="margin-top: 12px">
+                <input type="text" pInputText placeholder="Address Line 2" formControlName="address_line_2" style="margin-top: 12px">
+                <input type="text" pInputText placeholder="City" formControlName="city" style="margin-top: 12px">
+                <input type="text" pInputText placeholder="State" formControlName="state" style="margin-top: 12px">
+                <input type="text" pInputText placeholder="Zip" formControlName="zip" style="margin-top: 12px">
+                <button *ngIf="isManager" type="submit" class="p-button-success" label="Create" pButton style="margin-top: 12px"></button>
+            </form>
+        </ng-container>
+       
     </div>
 </div>

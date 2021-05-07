@@ -52,4 +52,11 @@ export class BookingService {
       (err: HttpErrorResponse) => err as HttpErrorResponse
     ))
   }
+
+  approvePrice(booking_id: number): Observable<HttpResponseBase | HttpErrorResponse> {
+    return this._http.get(`${API_URL}/booking/${booking_id}/approve-price`).pipe(map(
+      (res: HttpResponseBase) => res as HttpResponseBase, 
+      (err: HttpErrorResponse) => err as HttpErrorResponse
+    ))
+  }
 }

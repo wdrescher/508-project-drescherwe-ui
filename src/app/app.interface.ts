@@ -75,7 +75,7 @@ export interface Client {
 }
 
 export interface Parlor {
-    parlor_id: string; 
+    parlor_id: int; 
     name: string; 
     address_line_1: string; 
     address_line_2: string; 
@@ -83,6 +83,10 @@ export interface Parlor {
     state: string; 
     zip: string; 
     shop_commission: number; 
+}
+
+export interface Artist {
+    parlor_id: number; 
 }
 
 export enum AppState {

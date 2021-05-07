@@ -161,8 +161,14 @@ export class BookingComponent implements OnInit {
 
   submitAppointmentTime(): void {
     if (this.timeFormGroup.valid && this.datesUnique) {
+      this._bookingService.approvePrice(this.currentBooking.booking_id).subscribe(
+        () => {
+          this.currentBooking.price_approved = true; 
+        }
+      )
       this._bookingService.schedule(this.currentBooking.booking_id, this.dateList).subscribe(
         () => {
+          this.currentBooking.price_approved = true; 
           this.displayTimeSlotModal = false; 
         }
       )
