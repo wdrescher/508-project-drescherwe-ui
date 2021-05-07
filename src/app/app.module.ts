@@ -16,6 +16,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CalendarModule } from 'primeng/calendar';
 import { CarouselModule } from 'primeng/carousel';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -61,7 +63,9 @@ declare global {
     TooltipModule,
     InputNumberModule, 
     CalendarModule,
-    CarouselModule
+    CarouselModule, 
+    OverlayPanelModule, 
+    ConfirmDialogModule
   ],
   providers: [
     CookieService, 

@@ -225,6 +225,6 @@ export class BookingComponent implements OnInit {
   }
 
   timeslotButtonClass(date: string): string {
-    return this.currentBooking.selected_date.toString() === date  ? 'p-button-success' : 'p-button-secondary'
+    return !!this.currentBooking.selected_date && this.currentBooking.selected_date.toString() === date  ? 'p-button-success' : 'p-button-secondary'
   }
 }
