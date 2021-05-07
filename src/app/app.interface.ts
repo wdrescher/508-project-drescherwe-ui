@@ -64,7 +64,8 @@ export interface Booking {
     design_description: string,
     design_approved: boolean,
     price: number,
-    price_approved: boolean
+    price_approved: boolean, 
+    selected_date: Date; 
   }
 
 export interface ArtistProfile extends User, Artist {}
@@ -75,7 +76,7 @@ export interface Client {
 }
 
 export interface Parlor {
-    parlor_id: int; 
+    parlor_id: number; 
     name: string; 
     address_line_1: string; 
     address_line_2: string; 

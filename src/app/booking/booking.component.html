@@ -15,6 +15,11 @@
             </div>
             <div *ngIf="booking.price != 0">${{booking.price}}</div>
             <p-button *ngIf="!booking.price_approved && booking.design_approved" label="Approve Price" [style]="{'margin-top': '24px'}" (click)="approvePrice(booking)"></p-button>
+
+            <div *ngIf="booking.price_approved" style="margin-top: 24px;"class="booking__card-row" tooltipPosition="bottom" [pTooltip]="tooltipMessage('price', booking)">
+                <strong>Date:</strong> 
+                <p-tag [value]="labelText(!!booking.selected_date)" [severity]="!!booking.selected_date ? 'success' : 'info'"></p-tag>
+            </div>
         </p-card>
     </ng-container>
 
@@ -34,6 +39,9 @@
             <div *ngIf="booking.price != 0">${{booking.price}}</div>
             
             <p-button *ngIf="!booking.design_approved" label="Review" [style]="{'margin-top': '24px'}" (click)="approveBooking(booking)"></p-button>
+
+            <div>Date: <span>{{formatDate(booking.selected_date)}}</span></div>
+            <p-button *ngIf="booking.price_approved" [label]="!booking.selected_date ? 'Select a time' : 'Change booking time'" [style]="{'margin-top': '24px'}" (click)="selectTime(booking)"></p-button>
         </p-card>
     </ng-container>
 
@@ -62,5 +70,11 @@
             <p-calendar formControlName="date_3" [inline]="true" [showTime]="true"></p-calendar>    
             <button *ngIf="!currentBooking.price_approved" type="submit" [disabled]="timeGroupDisabled" pButton styleClass="p-button-success" label="Approve Price and Set Times" (click)="submitAppointmentTime()"></button>
         </form>
+    </p-dialog>
+
+    <p-dialog header="Select a time" *ngIf="!!times" modal="true" [(visible)]="displaySelectTimeModal">
+        <p-button *ngFor="let date of times" [label]="formatDate(date)" (click)="submitSelectedTime(date)" [styleClass]="timeslotButtonClass(date)">
+           
+        </p-button>
     </p-dialog>
 </div>

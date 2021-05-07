@@ -3,7 +3,7 @@ import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { timestamp } from 'rxjs/operators';
 import { Booking } from '../app.interface';
 import { AppStateService } from '../services/app-state.service';
-import { BookingService, ListBookingsSuccessResponse } from '../services/booking.service';
+import { BookingService, ListBookingsSuccessResponse, ListTimeSlotResponse } from '../services/booking.service';
 import { UserStateService } from '../services/user-state.service';
 
 @Component({
@@ -18,8 +18,11 @@ export class BookingComponent implements OnInit {
   formGroup: FormGroup; 
   timeFormGroup: FormGroup; 
 
+  times: Date[]; 
+
   private _displayApprovalModal = false; 
   private _displayTimeSlotModal = false; 
+  private _displaySelectTimeModal = false; 
 
   constructor(
     private _bookingService: BookingService, 
@@ -175,7 +178,53 @@ export class BookingComponent implements OnInit {
     }
   }
 
+  selectTime(booking: Booking): void {
+    this.currentBooking = booking; 
+    this.displaySelectTimeModal = true; 
+  }
+
   get timeGroupDisabled(): boolean {
     return !(this.timeFormGroup.valid && this.datesUnique)
+  }
+
+  get displaySelectTimeModal(): boolean {
+    return this._displaySelectTimeModal
+  }
+
+  set displaySelectTimeModal(input: boolean) {
+    if (input) {
+      this._bookingService.getTimes(this.currentBooking.booking_id).subscribe(
+        (res: ListTimeSlotResponse) => {
+          this.times = res.times
+        }, 
+        () => this._appStateService.displayErrorModal = true
+      )
+    }
+    else {
+      this.times = undefined; 
+      this.currentBooking = undefined; 
+    }
+
+    this._displaySelectTimeModal = input; 
+  } 
+
+  submitSelectedTime(date: Date): void {
+    this._bookingService.selectTime(this.currentBooking.booking_id, date).subscribe(
+      () => {
+        this.currentBooking.selected_date = date
+      },
+      () => {
+        this._appStateService.displayErrorModal = true
+      }
+    )
+  }
+
+  formatDate(input: string): string {
+    const date = new Date(input);
+    return `${date.getUTCMonth()}/${date.getDate()} : ${date.getHours()}:${date.getMinutes()}`
+  }
+
+  timeslotButtonClass(date: string): string {
+    return this.currentBooking.selected_date.toString() === date  ? 'p-button-success' : 'p-button-secondary'
   }
 }
