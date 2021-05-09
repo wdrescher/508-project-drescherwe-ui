@@ -20,6 +20,9 @@
                 <strong>Date:</strong> 
                 <p-tag [value]="labelText(!!booking.selected_date)" [severity]="!!booking.selected_date ? 'success' : 'info'"></p-tag>
             </div>
+            <div *ngIf="!!booking.selected_date">
+                {{formatDate(booking.selected_date)}}
+            </div>
         </p-card>
     </ng-container>
 

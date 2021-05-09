@@ -18,6 +18,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { CarouselModule } from 'primeng/carousel';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +30,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { BookingComponent } from './booking/booking.component';
 import { ParlorComponent } from './parlor/parlor.component';
+import { MessageService } from 'primeng/api';
 
 declare global {
   interface Window {
@@ -65,7 +67,8 @@ declare global {
     CalendarModule,
     CarouselModule, 
     OverlayPanelModule, 
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    ToastModule
   ],
   providers: [
     CookieService, 
@@ -73,7 +76,8 @@ declare global {
       provide : HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi   : true,
-    }
+    },
+    MessageService
   ],
   bootstrap: [AppComponent]
 })
